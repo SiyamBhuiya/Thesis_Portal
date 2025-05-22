@@ -1,0 +1,24 @@
+{
+  "name": "thesis_portal",
+  "version": "1.0.0",
+  "description": "Creating a thesis portal for students",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiyamBhuiya/Thesis_Portal.git"
+  },
+  "author": "MD Siyam Bhuiyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiyamBhuiya/Thesis_Portal/issues"
+  },
+  "homepage": "https://github.com/SiyamBhuiya/Thesis_Portal#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.15.0",
+    "nodemon": "^3.1.10"
+  }
+}

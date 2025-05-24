@@ -1,5 +1,5 @@
 import React from 'react';
-import 'public/menu_files/navbars.css';
+import '../styles/navbar.css';
 import MenuItem from './MenuItem';
 
 const studentMenu = [

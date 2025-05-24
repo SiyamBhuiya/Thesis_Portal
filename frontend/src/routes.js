@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useRoutes } from 'react-router-dom';
 // Placeholder components – replace with actual components
 const Dashboard = () => <div><h2>Dashboard</h2></div>;
 const SubmitThesis = () => <div><h2>Submit Thesis</h2></div>;
@@ -39,4 +39,6 @@ const routes = [
   { path: '/settings', component: <Settings /> }
 ];
 
-export default routes;
+export default function AppRoutes(){
+return useRoutes(routes);
+}

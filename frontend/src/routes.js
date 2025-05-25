@@ -1,44 +1,63 @@
 import React from 'react';
-import { useRoutes } from 'react-router-dom';
-// Placeholder components – replace with actual components
-const Dashboard = () => <div><h2>Dashboard</h2></div>;
-const SubmitThesis = () => <div><h2>Submit Thesis</h2></div>;
-const EditSubmission = () => <div><h2>Edit Submission</h2></div>;
-const MySubmissions = () => <div><h2>My Submissions</h2></div>;
-const Profile = () => <div><h2>Profile</h2></div>;
-const AllSubmissions = () => <div><h2>All Submissions</h2></div>;
-const StudentManagement = () => <div><h2>Student Management</h2></div>;
-const ReviewSubmissions = () => <div><h2>Review Submissions</h2></div>;
-const Reports = () => <div><h2>Reports/Export</h2></div>;
-const Settings = () => <div><h2>Settings</h2></div>;
-const Notifications = () => <div><h2>Notifications</h2></div>;
-const Help = () => <div><h2>Help/FAQ</h2></div>;
-const ContactAdmin = () => <div><h2>Contact Admin</h2></div>;
-const Logout = () => <div><h2>Logout</h2></div>;
+import { Navigate, useRoutes } from 'react-router-dom';
 
-// Exporting route definitions for easier import in App.js or Router setup
-const routes = [
-  // Shared Routes
-  { path: '/dashboard', component: <Dashboard /> },
-  { path: '/notifications', component: <Notifications /> },
-  { path: '/help', component: <Help /> },
-  { path: '/contact', component: <ContactAdmin /> },
-  { path: '/logout', component: <Logout /> },
+// Public
+import Home from './pages/Home';
+import Help from './pages/Help';
+import ContactAdmin from './pages/ContactAdmin';
+import LoginSignup from './pages/LoginSignup';
 
-  // Student Routes
-  { path: '/submit', component: <SubmitThesis /> },
-  { path: '/edit', component: <EditSubmission /> },
-  { path: '/my-submissions', component: <MySubmissions /> },
-  { path: '/profile', component: <Profile /> },
+// Student
+import Dashboard from './pages/Dashboard';
+import MySubmissions from './pages/MySubmissions';
+import SubmitThesis from './pages/SubmitThesis';
+import EditSubmission from './pages/EditSubmission';
+import Profile from './pages/Profile';
+import Notifications from './pages/Notifications';
 
-  // Admin Routes
-  { path: '/all-submissions', component: <AllSubmissions /> },
-  { path: '/students', component: <StudentManagement /> },
-  { path: '/review', component: <ReviewSubmissions /> },
-  { path: '/reports', component: <Reports /> },
-  { path: '/settings', component: <Settings /> }
-];
+// Admin
+import AllSubmissions from './pages/AdminPages/AllSubmissions';
+import StudentManagement from './pages/AdminPages/StudentManagement';
+import ReviewSubmissions from './pages/AdminPages/ReviewSubmissions';
+import Reports from './pages/AdminPages/Reports';
+import Settings from './pages/AdminPages/Settings';
 
-export default function AppRoutes(){
-return useRoutes(routes);
-}
+const AppRoutes = ({ isLoggedIn, isAdmin }) => {
+  const routes = [
+    // Public routes
+    { path: '/', element: <Home /> },
+    { path: '/help', element: <Help /> },
+    { path: '/contact', element: <ContactAdmin /> },
+    { path: '/login', element: isLoggedIn ? <Navigate to="/dashboard" /> : <LoginSignup /> },
+
+    // Protected Student/Admin Routes
+    ...(isLoggedIn
+      ? [
+          { path: '/dashboard', element: <Dashboard /> },
+          { path: '/my-submissions', element: <MySubmissions /> },
+          { path: '/submit', element: <SubmitThesis /> },
+          { path: '/edit', element: <EditSubmission /> },
+          { path: '/profile', element: <Profile /> },
+          { path: '/notifications', element: <Notifications /> }
+        ]
+      : []),
+
+    // Admin-only routes
+    ...(isLoggedIn && isAdmin
+      ? [
+          { path: '/all-submissions', element: <AllSubmissions /> },
+          { path: '/students', element: <StudentManagement /> },
+          { path: '/review', element: <ReviewSubmissions /> },
+          { path: '/reports', element: <Reports /> },
+          { path: '/settings', element: <Settings /> }
+        ]
+      : []),
+
+    // Catch-all
+    { path: '*', element: <Navigate to="/" /> }
+  ];
+
+  return useRoutes(routes);
+};
+
+export default AppRoutes;

@@ -1,18 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-import Nav from './nav.js';
-import Navbar from './components/Navbar';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import AppRoutes from './routes';
-import { Routes, Route } from 'react-router-dom';
-import routes from './routes';
 
 function App() {
-  const isAdmin = false; // Replace this with logic from auth context or user session
+  // Force logged in for testing until backend is ready
+  const loggedIn = true;
+  const isAdmin = false;
 
- return (
+  return (
     <BrowserRouter>
-      <AppRoutes />
+      <Navbar isLoggedIn={loggedIn} isAdmin={isAdmin} />
+      <AppRoutes isLoggedIn={loggedIn} isAdmin={isAdmin} />
     </BrowserRouter>
   );
 }

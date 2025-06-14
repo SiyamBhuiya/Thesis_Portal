@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import "../styles/style.css"; // Assuming CSS is external
+import "../styles/style.css"; 
+import { useNavigate } from "react-router-dom";
+
 
 const SlideForm = () => {
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [signupData, setSignupData] = useState({
+    studentName: "",
     username: "",
+    studentID:"",
     email: "",
     password: "",
     confirmPassword: "",
@@ -15,15 +20,36 @@ const SlideForm = () => {
     setSignupData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSignupSubmit = (e) => {
-    e.preventDefault();
-    if (signupData.password !== signupData.confirmPassword) {
-      alert("Passwords do not match.");
-      return;
+const handleSignupSubmit = async (e) => {
+  e.preventDefault();
+
+  if (signupData.password !== signupData.confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(signupData),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert("Signup successful!");
+      navigate("/dashboard");
+    } else {
+      alert(result.message || "Signup failed. Please try again.");
     }
-    alert("Signed up successfully!");
-    // Handle real signup logic here
-  };
+  } catch (error) {
+    console.error("Signup error:", error);
+    alert("An error occurred during signup. Please try again.");
+  }
+};
 
   return (
     <div className="auth-container">
@@ -59,7 +85,7 @@ const SlideForm = () => {
             />
             <input
               type="text"
-              name="studentId"
+              name="studentID"
               placeholder="Student ID"
               value={signupData.studentId}
               onChange={handleSignupChange}

@@ -1,22 +1,26 @@
-// Get the token from localStorage (or cookie)
-export function getToken() {
-  return localStorage.getItem('token');
-}
+// Save user data after login/signup
+export const saveUser = (user) => {
+  localStorage.setItem("user", JSON.stringify(user));
+};
+
+// Get current user from localStorage
+export const getUser = () => {
+  const storedUser = localStorage.getItem("user");
+  return storedUser ? JSON.parse(storedUser) : null;
+};
 
 // Check if user is logged in
-export function isLoggedIn() {
-  return !!getToken();
-}
+export const isLoggedIn = () => {
+  return !!localStorage.getItem("user");
+};
 
-// Get the user role from the token payload
-export function getUserRole() {
-  const token = getToken();
-  if (!token) return null;
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.role || null; // "admin" or "student"
-  } catch (err) {
-    console.error('Error decoding token', err);
-    return null;
-  }
-}
+// Log out the user
+export const logoutUser = () => {
+  localStorage.removeItem("user");
+};
+
+// Get user's role
+export const getUserRole = () => {
+  const user = getUser();
+  return user?.role || null;
+};

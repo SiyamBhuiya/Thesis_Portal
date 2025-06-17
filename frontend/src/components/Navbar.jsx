@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../utils/auth";
 import "../styles/navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -62,6 +64,12 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
     { name: "Contact Admin", path: "/contact", icon: faEnvelope },
     { name: "Logout", path: "/logout", icon: faSignOutAlt },
   ];
+  const navigate = useNavigate();
+
+const handleLogout = () => {
+  logoutUser();        // clear localStorage or session
+  navigate("/login");       // redirect to login page
+};
 
   const menu = isAdmin ? adminMenu : studentMenu;
 
@@ -73,12 +81,40 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
             key={name}
             className={subMenu ? "nav-item has-dropdown" : "nav-item"}
           >
-            <NavLink
-              to={path}
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <FontAwesomeIcon icon={icon} className="nav-icon" /> {name}
-            </NavLink>
+{subMenu ? (
+  <>
+    <NavLink
+      to={path}
+      className={({ isActive }) => (isActive ? "active" : "")}
+    >
+      <FontAwesomeIcon icon={icon} className="nav-icon" /> {name}
+    </NavLink>
+    <ul className="dropdown-menu">
+      {subMenu.map(({ name: subName, path: subPath, icon: subIcon }) => (
+        <li key={subName}>
+          <NavLink
+            to={subPath}
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <FontAwesomeIcon icon={subIcon} className="nav-icon" /> {subName}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
+  </>
+) : name === "Logout" ? (
+  <span onClick={handleLogout} className="nav-link clickable">
+    <FontAwesomeIcon icon={icon} className="nav-icon" /> {name}
+  </span>
+) : (
+  <NavLink
+    to={path}
+    className={({ isActive }) => (isActive ? "active" : "")}
+  >
+    <FontAwesomeIcon icon={icon} className="nav-icon" /> {name}
+  </NavLink>
+)}
+
             {subMenu && (
               <ul className="dropdown-menu">
                 {subMenu.map(

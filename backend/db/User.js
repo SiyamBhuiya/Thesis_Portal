@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 const config = require('./config');
+const {
+  hashPassword,
+  comparePassword,
+  createToken,
+  verifyToken,
+} = require("./utils/auth");
+
+
 
 const userSchema = new mongoose.Schema({
 

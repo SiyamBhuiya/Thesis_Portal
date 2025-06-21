@@ -24,8 +24,8 @@ studentID: {
   type: String,
   required: [true, 'Student ID is required'],
   unique: true,
-  trim: true, // Remove leading and trailing whitespace
-  match: [/^[0-9-]+$/, 'Invalid student ID format'] // Allow only numbers and hyphens
+  trim: true, 
+  match: [/^[0-9-]+$/, 'Invalid student ID format'] 
 },
     email: {
         type: String,

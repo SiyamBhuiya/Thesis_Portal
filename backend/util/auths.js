@@ -1,37 +1,48 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const express = require("express");
+const router = express.Router();
+const User = require("./User");
+const { hashPassword, comparePassword, createToken } = require("./util/auth");
 
-// Replace with environment variable in production
-const JWT_SECRET = process.env.JWT_SECRET || "super-secret-key";
+router.post("/signup", async (req, res) => {
+  try {
+    const { password, ...userData } = req.body;
+    const hashed = await hashPassword(password);
+    const newUser = new User({ ...userData, password: hashed });
+    const savedUser = await newUser.save();
 
-// Hash password before storing in DB
-const hashPassword = async (plainPassword) => {
-  const saltRounds = 10;
-  return await bcrypt.hash(plainPassword, saltRounds);
-};
+    const token = createToken(savedUser);
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 86400000,
+    });
 
-// Compare entered password with hashed one from DB
-const comparePassword = async (plainPassword, hashedPassword) => {
-  return await bcrypt.compare(plainPassword, hashedPassword);
-};
+    res.status(201).json({ success: true, data: savedUser });
+  } catch (error) {
+    console.error("Signup error:", error);
+    res.status(500).json({ success: false, message: "Signup failed" });
+  }
+});
 
-// Create JWT token (used for sessions or cookies)
-const createToken = (user) => {
-  return jwt.sign(
-    { id: user._id, email: user.email, username: user.username },
-    JWT_SECRET,
-    { expiresIn: "1d" } // expires in 1 day
-  );
-};
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(401).json({ success: false, message: "User not found" });
 
-// Verify token (optional for protected routes)
-const verifyToken = (token) => {
-  return jwt.verify(token, JWT_SECRET);
-};
+    const isMatch = await comparePassword(password, user.password);
+    if (!isMatch) return res.status(401).json({ success: false, message: "Invalid password" });
 
-module.exports = {
-  hashPassword,
-  comparePassword,
-  createToken,
-  verifyToken,
-};
+    const token = createToken(user);
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 86400000,
+    });
+
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ success: false, message: "Login failed" });
+  }
+});
+
+module.exports = router;

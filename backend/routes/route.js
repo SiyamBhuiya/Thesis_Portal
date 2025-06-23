@@ -1,19 +1,9 @@
-const express= require('express');
-const cors= require('cors');
-const cookieParser = require("cookie-parser");
-const {
-  hashPassword,
-  comparePassword,
-  createToken
-} = require("./util/auths");
-require("./db/config");
-const authRoutes = require("./routes/auth");
-const User= require("./db/User");
-const app= express();
-const PORT = process.env.PORT || 5000;
+const express = require("express");
+const router = express.Router();
+const User = require("./User");
+const { hashPassword, comparePassword, createToken } = require("./util/auth");
 
-// Signup 
-app.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const { password, ...userData } = req.body;
     const hashed = await hashPassword(password);
@@ -24,36 +14,35 @@ app.post("/signup", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 86400000,
-      sameSite: "Lax",
     });
 
     res.status(201).json({ success: true, data: savedUser });
   } catch (error) {
-    console.error("❌ Signup error:", error);
+    console.error("Signup error:", error);
     res.status(500).json({ success: false, message: "Signup failed" });
   }
 });
 
-// Login
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ success: false, message: "User not found" });
 
     const isMatch = await comparePassword(password, user.password);
-    if (!isMatch) return res.status(401).json({ success: false, message: "Incorrect password" });
+    if (!isMatch) return res.status(401).json({ success: false, message: "Invalid password" });
 
     const token = createToken(user);
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 86400000,
-      sameSite: "Lax",
     });
 
     res.status(200).json({ success: true, data: user });
   } catch (error) {
-    console.error("❌ Login error:", error);
+    console.error("Login error:", error);
     res.status(500).json({ success: false, message: "Login failed" });
   }
 });
+
+module.exports = router;

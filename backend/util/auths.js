@@ -1,48 +1,40 @@
-const express = require("express");
-const router = express.Router();
-const User = require("./User");
-const { hashPassword, comparePassword, createToken } = require("./util/auth");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-router.post("/signup", async (req, res) => {
-  try {
-    const { password, ...userData } = req.body;
-    const hashed = await hashPassword(password);
-    const newUser = new User({ ...userData, password: hashed });
-    const savedUser = await newUser.save();
+const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-key";
 
-    const token = createToken(savedUser);
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 86400000,
-    });
+// Hash the password
+const hashPassword = async (plainPassword) => {
+  const saltRounds = 10;
+  return await bcrypt.hash(plainPassword, saltRounds);
+};
 
-    res.status(201).json({ success: true, data: savedUser });
-  } catch (error) {
-    console.error("Signup error:", error);
-    res.status(500).json({ success: false, message: "Signup failed" });
-  }
-});
+// Compare plain password to hashed password
+const comparePassword = async (plainPassword, hashedPassword) => {
+  return await bcrypt.compare(plainPassword, hashedPassword);
+};
 
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ success: false, message: "User not found" });
+// Create JWT token
+const createToken = (user) => {
+  return jwt.sign(
+    {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+    },
+    JWT_SECRET,
+    { expiresIn: "1d" }
+  );
+};
 
-    const isMatch = await comparePassword(password, user.password);
-    if (!isMatch) return res.status(401).json({ success: false, message: "Invalid password" });
+//Verify JWT token
+const verifyToken = (token) => {
+  return jwt.verify(token, JWT_SECRET);
+};
 
-    const token = createToken(user);
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 86400000,
-    });
-
-    res.status(200).json({ success: true, data: user });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ success: false, message: "Login failed" });
-  }
-});
-
-module.exports = router;
+module.exports = {
+  hashPassword,
+  comparePassword,
+  createToken,
+  verifyToken,
+};

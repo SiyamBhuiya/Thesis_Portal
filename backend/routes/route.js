@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const User = require("./User");
-const { hashPassword, comparePassword, createToken } = require("./util/auth");
+const User= require("../db/User");
+const { hashPassword, comparePassword, createToken } = require("../util/auths");
 
 router.post("/signup", async (req, res) => {
   try {

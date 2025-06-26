@@ -7,7 +7,8 @@ const {
   createToken
 } = require("./util/auths");
 require("./db/config");
-const authRoutes = require("./routes/auth");
+const submissions = require("./db/submissions");
+const authRoutes = require("./routes/route");
 const User= require("./db/User");
 const app= express();
 const PORT = process.env.PORT || 5000;
@@ -57,3 +58,16 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ success: false, message: "Login failed" });
   }
 });
+//submission
+app.post("/submit", async (req, res) => {
+  try {
+    const submissionData = req.body;
+    const newSubmission = new submissions(submissionData);
+    const savedSubmission = await newSubmission.save();
+    res.status(201).json({ success: true, data: savedSubmission });
+  } catch (error) {
+    console.error("❌ Submission error:", error);
+    res.status(500).json({ success: false, message: "Submission failed" });
+  }
+});
+app.use(express.json());

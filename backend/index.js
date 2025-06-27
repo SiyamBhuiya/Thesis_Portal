@@ -1,19 +1,24 @@
-const express= require('express');
-const cors= require('cors');
+const express = require("express");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const connectDB = require("./db/config");
 const {
   hashPassword,
   comparePassword,
   createToken
 } = require("./util/auths");
-require("./db/config");
 const submissions = require("./db/submissions");
-const authRoutes = require("./routes/route");
-const User= require("./db/User");
-const app= express();
+const User = require("./db/User");
+
+const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Signup 
+// Middleware
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(express.json());
+app.use(cookieParser());
+
+// Signup
 app.post("/signup", async (req, res) => {
   try {
     const { password, ...userData } = req.body;
@@ -58,7 +63,8 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ success: false, message: "Login failed" });
   }
 });
-//submission
+
+// Submission
 app.post("/submit", async (req, res) => {
   try {
     const submissionData = req.body;
@@ -70,4 +76,10 @@ app.post("/submit", async (req, res) => {
     res.status(500).json({ success: false, message: "Submission failed" });
   }
 });
-app.use(express.json());
+
+// Start server only after DB connects
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+});

@@ -1,4 +1,4 @@
-.submit-container {
+/* .submit-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -64,17 +64,210 @@
 
 .submit-box button:hover {
   background: #2563eb;
+} */
+/* Styles from Codepen.io */
+/* Reset and root */
+*, *:after, *:before {
+  box-sizing: border-box;
 }
 
+:root {
+  --c-action-primary: #2e44ff;
+  --c-action-primary-accent: #e9e5ff;
+  --c-action-secondary: #e5e5e5;
+  --c-text-primary: #0d0f21;
+  --c-text-secondary: #6a6b76;
+  --c-background-primary: #d0d1de;
+}
+
+/* Body */
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--c-text-primary);
+  background-color: var(--c-background-primary);
+  line-height: 1.5;
+}
+
+/* Form elements */
+input, button, select, textarea {
+  font: inherit;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: .25rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Modal */
+.modal {
+  width: 90%;
+  max-width: 500px;
+  margin: 10vh auto;
+  background-color: #fff;
+  border-radius: .5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+}
+
+/* Modal header */
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.logo-circle {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--c-action-primary-accent);
+}
+
+.logo-circle svg {
+  max-width: 1.5rem;
+}
+
+/* Close button */
+.btn-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: .25rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn-close:hover,
+.btn-close:focus {
+  background-color: var(--c-action-primary-accent);
+}
+
+/* Modal body */
+.modal-body {
+  padding: 1rem 1.5rem;
+}
+
+.modal-title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.modal-description {
+  color: var(--c-text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Upload area */
+.upload-area {
+  margin-top: 1.25rem;
+  border: none;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23ccc' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  background-color: transparent;
+  padding: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  border-radius: .25rem;
+  position: relative;
+}
+
+.upload-area:hover,
+.upload-area:focus-within {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%232e44ff' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.upload-area input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-area-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.upload-area-icon svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.upload-area-title {
+  font-weight: 700;
+  color: var(--c-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.upload-area-description {
+  color: var(--c-text-secondary);
+  text-align: center;
+}
+
+.upload-area-description strong {
+  color: var(--c-action-primary);
+  font-weight: 700;
+}
+
+/* Footer buttons */
+.modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btn-secondary,
+.btn-primary {
+  padding: .5rem 1rem;
+  font-weight: 500;
+  border: 2px solid var(--c-action-secondary);
+  border-radius: .25rem;
+  background-color: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background-color: var(--c-action-secondary);
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--c-action-primary);
+  border-color: var(--c-action-primary);
+}
+
+.btn-primary:hover {
+  background-color: #1c30d8;
+}
+
+/* Error messages */
 .error {
-  color: crimson;
-  margin-top: 0.3rem;
-  font-size: 0.9rem;
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }
 
+/* Success or failure message */
 .status-msg {
   margin-top: 1rem;
-  text-align: center;
-  font-weight: 600;
-  color: green;
+  padding: 0.75rem;
+  background-color: #e9e5ff;
+  border-left: 4px solid var(--c-action-primary);
+  color: var(--c-text-primary);
+  border-radius: .25rem;
 }

@@ -45,26 +45,64 @@ body {
 
 /* Form elements */
 input, button, select, textarea {
-  font: inherit;
-  width: 100%;
-  margin-top: 0.25rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: .25rem;
+ font: inherit;
+ width:100%;
+ margin-top:0.25rem;
+ padding:0.5rem;
+ border:1px solid #ccc;
+ border-radius: .25rem;
 }
 
+input[type="text"], textarea {
+ background-color: #f9f9f9;
+}
+input[type="text"]:focus, textarea:focus {
+ background-color: #fff;
+}
 textarea {
   resize: vertical;
 }
 
+/* Author name and Thesis Title field */
+.author-field, .title-field {
+ margin-bottom: 1rem;
+}
+
+.author-field label, .title-field label {
+ font-weight: 500;
+ margin-bottom: 0.25rem;
+ display: block;
+}
+
+.author-field input, .title-field input {
+ padding: 0.5rem;
+ border: 1px solid #ccc;
+ border-radius: 0.25rem;
+ width: 100%;
+ height: 3rem;
+}
 /* Modal */
 .modal {
+  position: relative; /* Changed from fixed to relative */
   width: 90%;
   max-width: 500px;
-  margin: 10vh auto;
+  margin: 5vh auto; /* vertical spacing */
   background-color: #fff;
-  border-radius: .5rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  z-index: 1000;
+
+  /* Use flex to center the modal horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align modal to top */
+  padding: 5vh 1rem; /* Add spacing above modal */
 }
 
 /* Modal header */
@@ -116,11 +154,6 @@ textarea {
 .modal-title {
   font-weight: 700;
   margin-bottom: 0.25rem;
-}
-
-.modal-description {
-  color: var(--c-text-secondary);
-  margin-bottom: 1rem;
 }
 
 /* Upload area */
@@ -184,6 +217,7 @@ textarea {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
+  margin-top:auto;
 }
 
 .btn-secondary,
@@ -226,4 +260,8 @@ textarea {
   border-left: 4px solid var(--c-action-primary);
   color: var(--c-text-primary);
   border-radius: .25rem;
+}
+.upload-thesis-pdf {
+  color: var(--c-text-secondary);
+  margin-top: 3rem;
 }

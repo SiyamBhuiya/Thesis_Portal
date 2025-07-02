@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const MySubmissions = () => {
   const [submissions, setSubmissions] = useState([]);
-  const studentID = localStorage.getItem('studentID'); // Or get from context
+  const studentID = localStorage.getItem('studentID'); 
 
   useEffect(() => {
     const fetchSubmissions = async () => {

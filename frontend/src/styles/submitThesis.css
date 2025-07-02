@@ -83,10 +83,10 @@ textarea {
 }
 /* Modal */
 .modal {
-  position: relative; /* Changed from fixed to relative */
+  position: relative; 
   width: 90%;
   max-width: 500px;
-  margin: 5vh auto; /* vertical spacing */
+  margin: 5vh auto; 
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -98,11 +98,10 @@ textarea {
   overflow-y: auto;
   z-index: 1000;
 
-  /* Use flex to center the modal horizontally */
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align modal to top */
-  padding: 5vh 1rem; /* Add spacing above modal */
+  align-items: flex-start; 
+  padding: 5vh 1rem; 
 }
 
 /* Modal header */

@@ -4,32 +4,32 @@ import axios from 'axios';
 import '../styles/home.css';
 
 const Home = () => {
-  const [submissions, setSubmissions] = useState([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchApproved = async () => {
-      try {
-        const res = await axios.get('http://localhost:5000/api/submissions/approved');
-        setSubmissions(res.data);
-      } catch (err) {
-        console.error('Error fetching approved theses:', err);
-      }
-    };
-    fetchApproved();
-  }, []);
+ const [submissions, setSubmissions] = useState([]);
+ const navigate = useNavigate();
+ useEffect(() => {
+ const fetchApproved = async () => {
+ try {
+ const res = await axios.get('http://localhost:5000/api/submissions/approved');
+ setSubmissions(res.data);
+ } catch (err) {
+ console.error('Error fetching approved theses:', err);
+ }
+ };
+ fetchApproved();
+ }, []);
 
  const handleClick = (thesis) => {
  navigate('/thesis', { state: { thesis } });
  };
 
  return (
+ <div className="home-container">
  <div className="home-list-container">
  <h2>📘 Approved Theses</h2>
  {submissions.length ===0 ? (
  <p>No approved theses yet.</p>
  ) : (
- <ul className="thesis-list">
+ <ul className="thesis-list" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
  {submissions.map((sub, idx) => (
  <li
  key={idx}
@@ -50,6 +50,12 @@ const Home = () => {
  ))}
  </ul>
  )}
+ </div>
+ <div className="about-us-container">
+ <h2>About Us</h2>
+ <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
+ <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet nulla auctor, vestibulum magna sed, convallis ex.</p>
+ </div>
  </div>
  );
 };

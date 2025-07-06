@@ -1,110 +1,127 @@
-html, body {
+html,
+body {
   height: 100%;
   text-align: initial;
 }
-
-body{
-	margin: 0;
-	padding: 0;
-	/*display: flex;*/
-	justify-content: center; 
-	align-items: center;
-	min-height: 100vh;
-	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #f1f1f5, #e6e6e7, #e2e2e6);
+.login-signup-page {
+  min-height: 100vh; /* Keep min-height for full viewport coverage */
+  font-family: 'Jost', sans-serif;
+  background: linear-gradient(to bottom, #8686c2, #9494b3, #e2e2e6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Change to align to the start (top) */
+  padding-top: 80px; /* Add padding to push it down from the top, adjusting for navbar height */
+  box-sizing: border-box; /* Important for padding */
 }
+
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
-}
-.main{
-	width: 420px;
-	height: 630px;
-	background: red;
-	overflow: hidden;
-	background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
-	border-radius: 10px;
-	box-shadow: 5px 20px 50px #000;
-}
-#chk{
-	display: none;
-}
-.signup{
-	position: relative;
-	width:100%;
-	height: 100%;
-}
-label{
-	color: #fff;
-	font-size: 2.3em;
-	justify-content: center;
-	display: flex;
-	margin: 50px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .5s ease-in-out;
-}
-input{
-	width: 70%;
-	height: 12px;
-	background: #e0dede;
-	justify-content: center;
-	display: flex;
-	margin: 20px auto;
-	padding: 12px;
-	border: none;
-	outline: none;
-	border-radius: 5px;
-}
-button{
-	width: 60%;
-	height: 40px;
-	margin: 10px auto;
-	justify-content: center;
-	display: block;
-	color: #fff;
-	background: #573b8a;
-	font-size: 1em;
-	font-weight: bold;
-	margin-top: 30px;
-	outline: none;
-	border: none;
-	border-radius: 5px;
-	transition: .2s ease-in;
-	cursor: pointer;
-}
-button:hover{
-	background: #6d44b8;
-}
-.login{
-	height: 460px;
-	background: #1f1e1e;
-	border-radius: 60% / 10%;
-	transform: translateY(-180px);
-	transition: .8s ease-in-out;
-}
-.login label{
-	color: #573b8a;
-	transform: scale(.6);
+  min-height: auto; /* Remove fixed min-height here, let content dictate */
 }
 
-#chk:checked ~ .login{
-	transform: translateY(-500px);
-}
-#chk:checked ~ .login label{
-	transform: scale(1);	
-}
-#chk:checked ~ .signup label{
-	transform: scale(.6);
+.login-signup-page .main {
+  width: 450px; /* Increased width */
+  height: 680px; /* Increased height to accommodate content */
+  background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
+  overflow: hidden; /* Keep overflow hidden */
+  margin-top: -30px; /* Move the container slightly upward relative to its flex alignment */
 }
 
-.error {
+.login-signup-page #chk {
+  display: none;
+}
+
+.login-signup-page .signup {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.login-signup-page label {
+  color: #fff;
+  font-size: 2.3em;
+  justify-content: center;
+  display: flex;
+  margin: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+
+.login-signup-page input {
+  width: 70%; /* Keep the width relative */
+  /* height: 12px; Removed fixed height for better padding control */
+  background: #f8f8f8; /* A very light grey for a cleaner look */
+  justify-content: center;
+  display: flex;
+  margin: 15px auto; /* Slightly adjust margin for spacing */
+  padding: 10px 15px; /* Increase padding for better click/tap area and visual space */
+  border: 1px solid #ddd; /* A subtle border for definition */
+  outline: none; /* Keep outline none, as you had it */
+  border-radius: 5px; /* Maintain rounded corners */
+  box-sizing: border-box; /* Crucial: Ensures padding doesn't increase total width/height */
+  font-size: 1em; /* Ensure font size is readable */
+  color: #333; /* Darker text color for readability */
+}
+
+.login-signup-page button {
+  width: 60%;
+  height: 40px;
+  margin: 10px auto;
+  justify-content: center;
+  display: block;
+  color: #fff;
+  background: #573b8a;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 30px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: 0.2s ease-in;
+  cursor: pointer;
+}
+
+.login-signup-page button:hover {
+  background: #6d44b8;
+}
+
+.login-signup-page .login {
+  height: 460px;
+  background: #1f1e1e;
+  border-radius: 60% / 10%;
+  transform: translateY(-180px);
+  transition: 0.8s ease-in-out;
+}
+
+.login-signup-page .login label {
+  color: #573b8a;
+  transform: scale(0.6);
+}
+
+.login-signup-page #chk:checked ~ .login {
+  transform: translateY(-500px);
+}
+
+.login-signup-page #chk:checked ~ .login label {
+  transform: scale(1);
+}
+
+.login-signup-page #chk:checked ~ .signup label {
+  transform: scale(0.6);
+}
+
+.login-signup-page .error {
   color: red;
   font-size: 0.8rem;
   margin-top: 4px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
+  justify-content: center; /* This centers the text horizontally */
+  align-items: center; /* This centers it vertically (if the container has height) */
+  display: flex; /* Crucial for justify-content and align-items to work */
+  text-align: center; /* Ensures text is centered within its own line if it wraps */
+  padding: 0 10px; /* Add some padding to prevent it from touching the edges */
 }

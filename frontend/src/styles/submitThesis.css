@@ -1,23 +1,93 @@
 /* Normalize CSS */
 /* Box model */
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
 }
 
 /* Reset */
-body, html, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, th, td, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+body,
+html,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+th,
+td,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -43,54 +113,66 @@ body {
   line-height: 1.5;
 }
 
-
 /* Form elements */
-input, button, select, textarea {
- font: inherit;
- width:100%;
- margin-top:0.25rem;
- padding:0.5rem;
- border:1px solid #ccc;
- border-radius: .25rem;
+/* Scoped styles for input, button, select, textarea */
+.submit-thesis-form input,
+.submit-thesis-form button,
+.submit-thesis-form select,
+.submit-thesis-form textarea {
+  font: inherit;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
 }
 
-input[type="text"], textarea {
- background-color: #f9f9f9;
+.submit-thesis-form input[type="text"],
+.submit-thesis-form textarea {
+  background-color: #f9f9f9;
 }
-input[type="text"]:focus, textarea:focus {
- background-color: #fff;
+.submit-thesis-form input[type="text"]:focus,
+.submit-thesis-form textarea:focus {
+  background-color: #fff;
 }
-textarea {
+.submit-thesis-form textarea {
   resize: vertical;
 }
 
 /* Author name and Thesis Title field */
-.author-field, .title-field {
- margin-bottom: 1rem;
+.author-field,
+.title-field {
+  margin-bottom: 1rem;
 }
 
-.author-field label, .title-field label {
- font-weight: 500;
- margin-bottom: 0.25rem;
- display: block;
+.author-field label,
+.title-field label,
+.submit-thesis-form label {
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  display: block;
 }
 
-.author-field input, .title-field input {
- padding: 0.5rem;
- border: 1px solid #ccc;
- border-radius: 0.25rem;
- width: 100%;
- height: 3rem;
+.author-field input,
+.title-field input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  width: 100%;
+  height: 3rem;
 }
 /* Modal */
 .modal {
-  position: relative; 
+  position: relative;
   width: 100%;
-  max-width: 600px;
-  margin: 5vh auto; 
+  max-width: 640px;
+  margin: 5vh auto;
   background-color: #fff;
   border-radius: 0.5rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 .modal-overlay {
   position: fixed;
@@ -101,8 +183,8 @@ textarea {
 
   display: flex;
   justify-content: center;
-  align-items: flex-start; 
-  padding: 5vh 1rem; 
+  align-items: flex-start;
+  padding: 5vh 1rem;
 }
 
 /* Modal header */
@@ -115,17 +197,18 @@ textarea {
 }
 
 .logo-circle {
-  width: 3.5rem;
-  height: 3.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: 50%;
   background-color: var(--c-action-primary-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo-circle svg {
-  max-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 /* Close button */
@@ -135,7 +218,7 @@ textarea {
   justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -168,7 +251,7 @@ textarea {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   position: relative;
 }
 
@@ -196,7 +279,10 @@ textarea {
 }
 
 .upload-area-title {
-  font-weight: 700;
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;
+  max-width: 90%;
   color: var(--c-text-primary);
   margin-bottom: 0.5rem;
 }
@@ -210,22 +296,25 @@ textarea {
   color: var(--c-action-primary);
   font-weight: 700;
 }
-
+.upload-area.dragging {
+  background-color: #f0faff;
+  border: 2px dashed var(--c-action-primary);
+}
 /* Footer buttons */
 .modal-footer {
   padding: 1rem 1.5rem 1.5rem;
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;
-  margin-top:auto;
+  margin-top: auto;
 }
 
 .btn-secondary,
 .btn-primary {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   font-weight: 500;
   border: 2px solid var(--c-action-secondary);
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   background-color: transparent;
   cursor: pointer;
   white-space: nowrap;
@@ -259,7 +348,7 @@ textarea {
   background-color: #e9e5ff;
   border-left: 4px solid var(--c-action-primary);
   color: var(--c-text-primary);
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 .upload-thesis-pdf {
   color: var(--c-text-secondary);

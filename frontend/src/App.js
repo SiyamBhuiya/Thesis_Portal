@@ -5,7 +5,7 @@ import AppRoutes from './routes';
 
 function App() {
   // Force logged in for testing until backend is ready
-  const loggedIn = false;
+  const loggedIn = true;
   const isAdmin = false;
 
   return (

@@ -44,7 +44,7 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
       ],
     },
     isLoggedIn && { name: "Profile", path: "/profile", icon: faUser },
-    { name: "Notifications", path: "/notifications", icon: faBell },
+    isLoggedIn &&{ name: "Notifications", path: "/notifications", icon: faBell },
     { name: "Help/FAQ", path: "/help", icon: faQuestionCircle },
     { name: "Contact Admin", path: "/contact", icon: faEnvelope },
     !isLoggedIn && { name: "Login/Signup", path: "/login", icon: faSignInAlt },

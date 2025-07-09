@@ -1,0 +1,85 @@
+/* Inherits visual structure from home.css */
+.home-list-container {
+  flex: 2;
+  padding: 20px;
+  max-width: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100vh;
+  position: relative;
+}
+
+.thesis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+.thesis-item {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  position: relative;
+  z-index: 1;
+}
+
+.thesis-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+}
+
+.thesis-content {
+  padding-left: 1rem;
+}
+
+.thesis-content h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.2rem;
+  color: #111827;
+}
+
+.thesis-content p {
+  margin: 0.25rem 0;
+  color: #374151;
+}
+
+.submission-actions {
+  margin-top: 0.5rem;
+}
+
+.edit-btn,
+.add-btn {
+  padding: 0.4rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.edit-btn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #2563eb;
+}
+
+.add-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.add-btn:hover {
+  background-color: #059669;
+}

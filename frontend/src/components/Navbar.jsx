@@ -34,7 +34,6 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
 
   const notifRef = useRef(null);
   const navigate = useNavigate();
-
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   const handleLogout = () => {
@@ -51,11 +50,6 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
     );
   };
 
-  const playSound = () => {
-    const audio = new Audio("/notif.mp3"); // Add your own mp3 in public folder
-    audio.play();
-  };
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (notifRef.current && !notifRef.current.contains(e.target)) {
@@ -65,13 +59,6 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  useEffect(() => {
-    // play sound when new notification appears
-    if (unreadCount > 0) {
-      playSound();
-    }
-  }, [unreadCount]);
 
   const menu = (isAdmin
     ? [
@@ -113,13 +100,13 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
           <li key={name} className={subMenu ? "nav-item has-dropdown" : "nav-item"}>
             {subMenu ? (
               <>
-                <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "")}>
+                <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "")}> 
                   <FontAwesomeIcon icon={icon} className="nav-icon" /> {name}
                 </NavLink>
                 <ul className="dropdown-menu">
                   {subMenu.map(({ name: subName, path: subPath, icon: subIcon }) => (
                     <li key={subName}>
-                      <NavLink to={subPath} className={({ isActive }) => (isActive ? "active" : "")}>
+                      <NavLink to={subPath} className={({ isActive }) => (isActive ? "active" : "")}> 
                         <FontAwesomeIcon icon={subIcon} className="nav-icon" /> {subName}
                       </NavLink>
                     </li>
@@ -131,20 +118,18 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
                 <FontAwesomeIcon icon={icon} className="nav-icon" /> {name}
               </span>
             ) : (
-              <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink to={path} className={({ isActive }) => (isActive ? "active" : "")}> 
                 <FontAwesomeIcon icon={icon} className="nav-icon" /> {name}
               </NavLink>
             )}
           </li>
         ))}
 
-        {/* Notification Bell aligned to right near Profile */}
-        <li className="nav-item notification-right" ref={notifRef}>
+        <li className="nav-item notification-item" ref={notifRef}>
           <div className="notification-wrapper" onClick={() => setShowNotif(!showNotif)}>
             <FontAwesomeIcon icon={faBell} className="nav-icon" />
             <span className="notif-label">Notifications</span>
-            {unreadCount > 0 && <span className="notif-dot animated-bounce" />}
-            <span className="notif-count">{notifications.length}</span>
+            {unreadCount > 0 && <span className="notif-dot" />} 
           </div>
 
           {showNotif && (
@@ -178,7 +163,6 @@ const Navbar = ({ isAdmin, isLoggedIn }) => {
           )}
         </li>
 
-        {/* Search Box */}
         <li className="search-box">
           <div className="search-container">
             {search.length === 0 && (
